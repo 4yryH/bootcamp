@@ -1,0 +1,5 @@
+<svg class="promo__button-icon" fill="none" height="25" viewBox="0 0 24 25" width="24"
+     xmlns="http://www.w3.org/2000/svg">
+  <path d="M4 12.5H20M13 5.5L20 12.5L13 19.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"
+        stroke-width="2"/>
+</svg>

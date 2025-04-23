@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="ie=edge" http-equiv="X-UA-Compatible">
+  <meta content="Some text description"
+        name="description">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  <link href="./style.css" rel="stylesheet">
+  <title>QUICKLINK</title>
+</head>
+<body class="page__body">
+<header class="header">
+  <div class="header__logo">
+    <img class="header__logo-icon" src="./images/icons/header-logo-icon.svg" alt="">
+    QUICKLINK
+  </div>
+  <div class="header__menu-button-wrapper">
+    <input class="header__menu-button" id="burger-checkbox" type="checkbox">
+    <label class="header__menu-label" for="burger-checkbox"></label>
+  </div>
+  <div class="header__menu-wrapper hidden">
+    <nav class="header__nav">
+      <ul class="nav-list">
+        <li class="nav-list__item"><a class="nav-list__link" href="#">Что это?</a></li>
+        <li class="nav-list__item"><a class="nav-list__link" href="#">Как это выглядит?</a></li>
+        <li class="nav-list__item"><a class="nav-list__link" href="#">Сколько стоит?</a></li>
+        <li class="nav-list__item"><a class="nav-list__link" href="#">FAQ</a></li>
+      </ul>
+    </nav>
+    <a class="header__login" href="#">
+      <span>Вход</span>
+      <div class="header__login-icon-wrapper">
+        <img class="header__login-icon" src="./images/icons/login-icon.svg" alt="">
+      </div>
+    </a>
+  </div>
+</header>
+<main class="main">
+  <section class="promo">
+    <h1 class="visually-hidden">Промо</h1>
+    <div class="promo__wrapper">
+      <h2 class="promo__title">Все, что тебе нужно <br> В одной ссылке</h2>
+      <p class="promo__text">Присоединяйся к более 50 млн. людей<br> и делись всем, что ты создаешь, курируешь или
+        продаешь
+        онлайн. Все в одной
+        ссылке.</p>
+    </div>
+    <form class="promo__form">
+      <label class="visually-hidden" for="email">Введите email</label>
+      <input class="promo__input" id="email" name="email" placeholder="your@mail.com" type="email">
+      <button class="promo__button button">
+        <span class="promo__button-text">Создать страницу</span>
+        <img class="promo__button-icon" src="./images/icons/button-icon.svg" alt="">
+      </button>
+    </form>
+  </section>
+  <section class="features">
+    <h2 class="visually-hidden">features</h2>
+    <ul class="features__list">
+      <li class="features__item feature">
+        <img class="features__item-icon" src="./images/icons/feature-icon-1.svg" alt="">
+        <div class="features__item-wrapper">
+          <h3 class="feature__title">Кастомные элементы</h3>
+          <p class="feature__text">Создавай и кастомизируй свой профиль за считанные минуты!</p>
+        </div>
+      </li>
+      <li class="features__item feature">
+        <img class="features__item-icon" src="./images/icons/feature-icon-2.svg" alt="">
+        <div class="features__item-wrapper">
+          <h3 class="feature__title">Подробная аналитика</h3>
+          <p class="feature__text">Отслеживай информацию о том, кто и откуда интересовался твоим профилем</p>
+        </div>
+      </li>
+      <li class="features__item feature">
+        <img class="features__item-icon" src="./images/icons/feature-icon-3.svg" alt="">
+        <div class="features__item-wrapper">
+          <h3 class="feature__title">Короткая ссылка</h3>
+          <p class="feature__text">Красивая персональная ссылка на профиль бесплатно!</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+  <section class="showcase">
+    <h2 class="showcase__title visually-hidden">showcase</h2>
+    <div class="showcase__article-wrapper">
+      <article class="experience">
+        <div class="experience__content">
+          <h2 class="experience__title">опыт работы</h2>
+          <ul class="experience__list">
+            <li class="experience__item job">
+              <div class="job__header">
+                <h3 class="job__company">Arrival</h3>
+                <span class="job__period">(2021-по наст. время)</span>
+              </div>
+              <a class="job__link" href="https://arrival.com" target="_blank">arrival.com</a>
+              <p class="job__position">Senior Front-End разработчик</p>
+            </li>
+            <li class="experience__item job">
+              <div class="job__header">
+                <h3 class="job__company">Apple</h3>
+                <span class="job__period">(2018-2021)</span>
+              </div>
+              <a class="job__link" href="https://apple.com" target="_blank">apple.com</a>
+              <p class="job__position">Middle+ Front-End разработчик</p>
+            </li>
+            <li class="experience__item job">
+              <div class="job__header">
+                <h3 class="job__company">IBM</h3>
+                <span class="job__period">(2017-2018)</span>
+              </div>
+              <a class="job__link" href="https://ibm.com" target="_blank">ibm.com</a>
+              <p class="job__position">Middle Front-End разработчик</p>
+            </li>
+          </ul>
+        </div>
+      </article>
+      <article class="project">
+        <img alt="Arrival Dashboard"
+             class="project__image"
+             height="57"
+             src="./images/arrival.jpg"
+             width="57">
+        <div class="project__info">
+          <h3 class="project__company">Arrival Dashboard</h3>
+          <p class="project__description">В качестве лид разработчика участвовал в создании и развитии систем
+            аналитики для британского стартапа</p>
+          <a class="project__button button" href="#">
+            <div class="button__text">Посмотреть</div>
+            <img class="button__decor" src="./images/icons/button-arrow.svg" alt="" width="6" height="6">
+          </a>
+        </div>
+      </article>
+      <article class="about-me">
+        <div class="container">
+          <div class="about-me__content">
+            <div class="about-me__photo">
+              <img alt="Моя фотография" class="about-me__image"
+                   height="61"
+                   src="./images/avatar.jpg"
+                   width="61">
+            </div>
+            <div class="about-me__short-description">
+              <div class="about-me__wrapper">
+                <h1 class="about-me__name">Майкл Найт</h1>
+                <p class="about-me__info">Помогу превратить программирование из хобби в прибыльную профессию</p>
+              </div>
+              <a aria-label="Написать сообщение Майклу" class="about-me__button button" href="#">
+                <div class="button__text">Написать</div>
+                <img class="button__decor" src="./images/icons/button-arrow.svg" alt="" width="4" height="3">
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="showcase__text-wrapper">
+      <p class="showcase__text">Большое количество кастомизируемых элементов поможет лучше рассказать <br> миру о себе и
+        привлечь новых клиентов</p>
+      <a class="showcase__link button" href="#">Попробовать бесплатно</a>
+    </div>
+  </section>
+  <section class="pricing">
+    <h3 class="pricing__title">тарифы</h3>
+    <ul class="pricing__list">
+      <li class="pricing__item">
+        <article class="plan plan--basic">
+          <div class="plan__wrapper">
+            <h4 class="plan__title">базовый</h4>
+            <div class="plan__price">
+              <p><span class="plan__amount">0₽</span>/мес</p>
+            </div>
+            <p class="plan__description">Для тех, кто хочет попробовать сервис</p>
+            <ul class="plan__features">
+              <li class="plan__feature">Нет платы за использование</li>
+              <li class="plan__feature">Бесплатный домен</li>
+              <li class="plan__feature">Несколько тем оформления на выбор</li>
+            </ul>
+          </div>
+          <a class="plan__button button" href="#">Попробовать</a>
+        </article>
+      </li>
+      <li class="pricing__item">
+        <article class="plan plan--basic">
+          <div class="plan__wrapper">
+            <h4 class="plan__title">премиум</h4>
+            <div class="plan__price">
+              <p><span class="plan__amount">250₽</span>/мес</p>
+            </div>
+            <p class="plan__description">Для продвинутых пользователей</p>
+            <ul class="plan__features">
+              <li class="plan__feature">Более 100 кастомных элементов</li>
+              <li class="plan__feature">Доступ к аналитике</li>
+              <li class="plan__feature">Скидки на продвижение</li>
+              <li class="plan__feature">Бесплатное хранилище фото</li>
+            </ul>
+          </div>
+          <a class="plan__button button" href="#">Получить премиум</a>
+          <div class="plan__badge">
+            <p class="plan__badge-text">Лучший выбор</p>
+          </div>
+        </article>
+      </li>
+    </ul>
+  </section>
+  <section class="faq">
+    <h2 class="faq__title">FAQ</h2>
+    <ul class="faq__list">
+      <li class="faq__item">
+        <details class="faq__details">
+          <summary class="faq__summary"><span>Зачем мне нужен Quicklink?</span></summary>
+          <div class="faq__content">
+            <p>Это единая ссылка, которую вы можете использовать, чтобы связать вашу аудиторию со всем, что вы делаете,
+              и
+              со всем, что вам небезразлично. Это позволяет делиться множеством ссылок в одной, чтобы ваши подписчики,
+              посетители и клиенты могли найти все, что они ищут, в одном месте.
+            </p>
+            <p>
+              Вы можете добавить ссылку на Quicklink на платформах социальных сетей, таких как Tiktok и Instagram,
+              включить в подписи к электронной почте и даже отобразить в виде QR-кода, чтобы ваша офлайн-аудитория
+              связалась с вами онлайн.
+            </p>
+          </div>
+        </details>
+      </li>
+      <li class="faq__item">
+        <details class="faq__details">
+          <summary class="faq__summary"><span>Как я могу использовать свой профиль?</span></summary>
+          <div class="faq__content">
+            <p>Это единая ссылка, которую вы можете использовать, чтобы связать вашу аудиторию со всем, что вы делаете,
+              и
+              со всем, что вам небезразлично. Это позволяет делиться множеством ссылок в одной, чтобы ваши подписчики,
+              посетители и клиенты могли найти все, что они ищут, в одном месте.
+            </p>
+            <p>
+              Вы можете добавить ссылку на Quicklink на платформах социальных сетей, таких как Tiktok и Instagram,
+              включить в подписи к электронной почте и даже отобразить в виде QR-кода, чтобы ваша офлайн-аудитория
+              связалась с вами онлайн.
+            </p>
+          </div>
+        </details>
+      </li>
+      <li class="faq__item">
+        <details class="faq__details">
+          <summary class="faq__summary"><span>Как много ссылок на профиль я могу создать?</span></summary>
+          <div class="faq__content">
+            <p>Это единая ссылка, которую вы можете использовать, чтобы связать вашу аудиторию со всем, что вы делаете,
+              и
+              со всем, что вам небезразлично. Это позволяет делиться множеством ссылок в одной, чтобы ваши подписчики,
+              посетители и клиенты могли найти все, что они ищут, в одном месте.
+            </p>
+            <p>
+              Вы можете добавить ссылку на Quicklink на платформах социальных сетей, таких как Tiktok и Instagram,
+              включить в подписи к электронной почте и даже отобразить в виде QR-кода, чтобы ваша офлайн-аудитория
+              связалась с вами онлайн.
+            </p>
+          </div>
+        </details>
+      </li>
+      <li class="faq__item">
+        <details class="faq__details">
+          <summary class="faq__summary"><span>Что дает премиум подписка?</span></summary>
+          <div class="faq__content">
+            <p>Это единая ссылка, которую вы можете использовать, чтобы связать вашу аудиторию со всем, что вы делаете,
+              и
+              со всем, что вам небезразлично. Это позволяет делиться множеством ссылок в одной, чтобы ваши подписчики,
+              посетители и клиенты могли найти все, что они ищут, в одном месте.
+            </p>
+            <p>
+              Вы можете добавить ссылку на Quicklink на платформах социальных сетей, таких как Tiktok и Instagram,
+              включить в подписи к электронной почте и даже отобразить в виде QR-кода, чтобы ваша офлайн-аудитория
+              связалась с вами онлайн.
+            </p>
+          </div>
+        </details>
+      </li>
+      <li class="faq__item">
+        <details class="faq__details">
+          <summary class="faq__summary"><span>Какие ограничения есть на базовом тарифе?</span></summary>
+          <div class="faq__content">
+            <p>Это единая ссылка, которую вы можете использовать, чтобы связать вашу аудиторию со всем, что вы делаете,
+              и
+              со всем, что вам небезразлично. Это позволяет делиться множеством ссылок в одной, чтобы ваши подписчики,
+              посетители и клиенты могли найти все, что они ищут, в одном месте.
+            </p>
+            <p>
+              Вы можете добавить ссылку на Quicklink на платформах социальных сетей, таких как Tiktok и Instagram,
+              включить в подписи к электронной почте и даже отобразить в виде QR-кода, чтобы ваша офлайн-аудитория
+              связалась с вами онлайн.
+            </p>
+          </div>
+        </details>
+      </li>
+    </ul>
+  </section>
+</main>
+<footer class="footer">
+  <section class="footer__section">
+    <div class="footer__logo">
+      <img class="footer__logo-icon" src="./images/icons/footer-logo-icon.svg" alt="">
+      QUICKLINK
+    </div>
+    <ul class="social">
+      <li class="social__item">
+        <a class="social__link" href="#" target="_blank">
+          <img class="social__link-icon" src="./images/icons/facebook.svg" alt="facebook">
+        </a>
+      </li>
+      <li class="social__item">
+        <a class="social__link" href="#" target="_blank">
+          <img class="social__link-icon" src="./images/icons/twitter.svg" alt="twitter">
+        </a>
+      </li>
+      <li class="social__item">
+        <a class="social__link" href="#" target="_blank">
+          <img class="social__link-icon" src="./images/icons/instagram.svg" alt="instagram">
+        </a>
+      </li>
+      <li class="social__item">
+        <a class="social__link" href="#" target="_blank">
+          <img class="social__link-icon" src="./images/icons/youtube.svg" alt="youtube">
+        </a>
+      </li>
+    </ul>
+  </section>
+  <section class="footer__section">
+    <nav class="footer__nav">
+      <ul class="footer-nav">
+        <li class="footer-nav__item">
+          <a class="footer-nav__link" href="#">Что это?</a>
+        </li>
+        <li class="footer-nav__item">
+          <a class="footer-nav__link" href="#">Как это выглядит?</a>
+        </li>
+        <li class="footer-nav__item">
+          <a class="footer-nav__link" href="#">Сколько стоит?</a>
+        </li>
+        <li class="footer-nav__item">
+          <a class="footer-nav__link" href="#">FAQ</a>
+        </li>
+      </ul>
+    </nav>
+  </section>
+  <section class="footer__section">
+    <ul class="footer-links">
+      <li class="footer-links__item">
+        <a class="footer-links__link" href="#">Перс. данные</a>
+      </li>
+      <li class="footer-links__item">
+        <a class="footer-links__link" href="#">Безопасность</a>
+      </li>
+      <li class="footer-links__item">
+        <a class="footer-links__link" href="#">Документы</a>
+      </li>
+      <li class="footer-links__item">
+        <a class="footer-links__link" href="#">Политика отмены</a>
+      </li>
+    </ul>
+  </section>
+  <section class="footer__section">
+    <ul class="footer-links">
+      <li class="footer-links__item">
+        <a class="footer-links__link" href="#">Поддержка</a>
+      </li>
+      <li class="footer-links__item">
+        <a class="footer-links__link" href="#">Компания</a>
+      </li>
+      <li class="footer-links__item">
+        <a class="footer-links__link" href="#">Вакансии</a>
+      </li>
+      <li class="footer-links__item">
+        <a class="footer-links__link" href="#">Партнерам</a>
+      </li>
+    </ul>
+  </section>
+  <a class="footer__feedback" href="#">
+    <div class="footer__feedback-wrapper">
+      <img class="footer__feedback-icon" src="./images/icons/feedback-icon.svg" alt="feedback">
+    </div>
+  </a>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
