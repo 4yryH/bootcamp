@@ -1,0 +1,155 @@
+:root {
+  --font-family: "Comic Relief", system-ui;
+  --graphit-color: #282a2cff;
+  --border-color: lightgray;
+  --correct-color: #7ee899;
+  --uncorrect-color: #fd6d7f;
+  --title-color: rgba(4, 72, 203, 0.7);
+  --yellow: #c9c907;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-family), sans-serif;
+  font-size: 18px;
+  list-style: none;
+}
+
+.header__title {
+  font-size: 32px;
+  color: var(--title-color);
+  text-align: center;
+}
+
+.main__subtitle {
+  font-size: 24px;
+  text-align: center;
+}
+
+.question__counter {
+  font-size: 21px;
+}
+
+.question__item {
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
+
+.question__answer {
+  font-size: 16px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  max-width: 100%;
+  width: 100%;
+  text-align: left;
+  padding: 10px;
+}
+
+.question__answer:hover,
+.question__answer:focus {
+  background-color: var(--border-color);
+  color: var(--title-color);
+}
+
+.button {
+  border-radius: 5px;
+  cursor: pointer;
+  max-width: 80%;
+  width: 100%;
+}
+
+.button--start {
+  background-color: var(--correct-color);
+  border: none;
+  padding: 10px;
+  max-width: 300px;
+  margin: 80px auto 0 auto;
+}
+
+.button--start:hover,
+.button--start:focus {
+  background-color: green;
+  font-size: 21px;
+}
+
+.button--repeat {
+  background-color: lightpink;
+  border: none;
+  padding: 10px;
+}
+
+.button--repeat:hover,
+.button--repeat:focus {
+  background-color: var(--uncorrect-color);
+  font-size: 21px;
+}
+
+
+/*layout*/
+.page__body {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-top: 24px;
+}
+
+.main {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.question {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.question__list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.question__form-button {
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+/*timer*/
+.timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+}
+
+.timer__warning {
+  color: var(--uncorrect-color)
+}
+
+.hidden {
+  display: none;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+}

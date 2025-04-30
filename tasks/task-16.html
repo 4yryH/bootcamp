@@ -1,0 +1,296 @@
+<!doctype html>
+<html class="page" lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        name="viewport">
+  <meta content="ie=edge" http-equiv="X-UA-Compatible">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&display=swap" rel="stylesheet">
+  <link href="./task-16.css" rel="stylesheet">
+  <title>Test for frontend</title>
+</head>
+<body class="page__body">
+<header class="header">
+  <h1 class="header__title">Frontend</h1>
+</header>
+<main class="main">
+  <h2 class="main__subtitle">Проверь свои знания в HTML, CSS, JavaScript</h2>
+  <div class="timer hidden">
+    <span class="timer__minutes">00</span>
+    <span class="timer__separator">:</span>
+    <span class="timer__seconds"></span>
+  </div>
+  <div class="timer__warning visibility-hidden">Время вышло!</div>
+  <article class="question hidden">
+    <p class="question__counter">Вопрос №<span class="question__counter-current">1</span> из <span
+      class="question__counter-total">12</span> вопросов</p>
+    <h3 class="question__title">Какой тег используется для создания заголовка первого уровня в HTML?</h3>
+    <ul class="question__list">
+      <li class="question__item">
+        <button class="question__answer">&lt;h2&gt;</button>
+      </li>
+      <li class="question__item">
+        <button class="question__answer">&lt;heading&gt;</button>
+      </li>
+      <li class="question__item">
+        <button class="question__answer question__answer--correct">&lt;h1&gt;</button>
+      </li>
+      <li class="question__item">
+        <button class="question__answer">&lt;head&gt;</button>
+      </li>
+    </ul>
+  </article>
+    <article class="question hidden">
+      <p class="question__counter">Вопрос №<span class="question__counter-current">2</span> из <span
+        class="question__counter-total">12</span> вопросов</p>
+      <h3 class="question__title">Какой атрибут указывает на URL-адрес, на который ведёт гиперссылка?</h3>
+      <ul class="question__list">
+        <li class="question__item">
+          <button class="question__answer">src</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer question__answer--correct">href</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer">link</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer">url</button>
+        </li>
+      </ul>
+    </article>
+    <article class="question hidden">
+      <p class="question__counter">Вопрос №<span class="question__counter-current">3</span> из <span
+        class="question__counter-total">12</span> вопросов</p>
+      <h3 class="question__title">Какой тег используется для вставки изображения в HTML?</h3>
+      <ul class="question__list">
+        <li class="question__item">
+          <button class="question__answer">&lt;img src="image.jpg" /&gt;</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer">&lt;image src="image.jpg&gt;</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer question__answer--correct">&lt;img src="image.jpg" alt="Описание"&gt;</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer">&lt;picture src="image.jpg"&gt;&lt;/picture&gt;</button>
+        </li>
+      </ul>
+    </article>
+    <article class="question hidden">
+      <p class="question__counter">Вопрос №<span class="question__counter-current">4</span> из <span
+        class="question__counter-total">12</span> вопросов</p>
+      <h3 class="question__title">Какой тег обозначает абзац в HTML?</h3>
+      <ul class="question__list">
+        <li class="question__item">
+          <button class="question__answer">&lt;br&gt;</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer">&lt;div&gt;</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer question__answer--correct">&lt;p&gt;</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer">&lt;span&gt;</button>
+        </li>
+      </ul>
+    </article>
+    <article class="question hidden">
+      <p class="question__counter">Вопрос №<span class="question__counter-current">5</span> из <span
+        class="question__counter-total">12</span> вопросов</p>
+      <h3 class="question__title">Какое свойство CSS изменяет цвет текста?</h3>
+      <ul class="question__list">
+        <li class="question__item">
+          <button class="question__answer">background-color</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer question__answer--correct">color</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer">font-color</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer">text-color</button>
+        </li>
+      </ul>
+    </article>
+    <article class="question hidden">
+      <p class="question__counter">Вопрос №<span class="question__counter-current">6</span> из <span
+        class="question__counter-total">12</span> вопросов</p>
+      <h3 class="question__title">Как правильно подклю чить внешний CSS-файл к HTML?</h3>
+      <ul class="question__list">
+        <li class="question__item">
+          <button class="question__answer">&lt;style src="styles.css"&gt;</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer question__answer--correct">&lt;link rel="stylesheet" href="styles.css"&gt;
+          </button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer">&lt;css file="styles.css"&gt;</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer">&lt;script type="text/css" src="styles.css"&gt;&lt;/script&gt;</button>
+        </li>
+      </ul>
+    </article>
+    <article class="question hidden">
+      <p class="question__counter">Вопрос №<span class="question__counter-current">7</span> из <span
+        class="question__counter-total">12</span> вопросов</p>
+      <h3 class="question__title">Какой селектор выбирает все элементы с классом button?</h3>
+      <ul class="question__list">
+        <li class="question__item">
+          <button class="question__answer">#button</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer question__answer--correct">.button</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer">button</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer">*button</button>
+        </li>
+      </ul>
+    </article>
+    <article class="question hidden">
+      <p class="question__counter">Вопрос №<span class="question__counter-current">8</span> из <span
+        class="question__counter-total">12</span> вопросов</p>
+      <h3 class="question__title">Какое свойство делает элемент невидимым, но сохраняет его место в разметке?</h3>
+      <ul class="question__list">
+        <li class="question__item">
+          <button class="question__answer">display: none;</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer question__answer--correct">visibility: hidden;</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer">opacity: 0;</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer">hidden: true;</button>
+        </li>
+      </ul>
+    </article>
+    <article class="question hidden">
+      <p class="question__counter">Вопрос №<span class="question__counter-current">9</span> из <span
+        class="question__counter-total">12</span> вопросов</p>
+      <h3 class="question__title">Что выведет этот код: console.log(2 + "2");?</h3>
+      <ul class="question__list">
+        <li class="question__item">
+          <button class="question__answer">4</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer question__answer--correct">"22"</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer">Ошибку</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer">NaN</button>
+        </li>
+      </ul>
+    </article>
+    <article class="question hidden">
+      <p class="question__counter">Вопрос №<span class="question__counter-current">10</span> из <span
+        class="question__counter-total">12</span> вопросов</p>
+      <h3 class="question__title">Как объявить переменную , значение которой нельзя изменить?</h3>
+      <ul class="question__list">
+        <li class="question__item">
+          <button class="question__answer">var x = 10;</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer">let x = 10;</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer question__answer--correct">const x = 10;</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer">variable x = 10;</button>
+        </li>
+      </ul>
+    </article>
+    <article class="question hidden">
+      <p class="question__counter">Вопрос №<span class="question__counter-current">11</span> из <span
+        class="question__counter-total">12</span> вопросов</p>
+      <h3 class="question__title">Какой метод добавляет элемент в конец массива?</h3>
+      <ul class="question__list">
+        <li class="question__item">
+          <button class="question__answer">array.pushFirst()</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer question__answer--correct">array.push()</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer">array.add()</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer">array.pop()</button>
+        </li>
+      </ul>
+    </article>
+    <article class="question hidden">
+      <p class="question__counter">Вопрос №<span class="question__counter-current">12</span> из <span
+        class="question__counter-total">12</span> вопросов</p>
+      <h3 class="question__title">Что такое NaN в JavaScript?</h3>
+      <ul class="question__list">
+        <li class="question__item">
+          <button class="question__answer">Пустая строка</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer">Ложное значение (false)</button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer question__answer--correct">"Not a Number" (не число) </button>
+        </li>
+        <li class="question__item">
+          <button class="question__answer">Специальный символ</button>
+        </li>
+      </ul>
+    </article>
+  <article class="question hidden">
+    <p class="question__counter">Вопрос №<span class="question__counter-current">13</span> из <span
+      class="question__counter-total">12</span> вопросов</p>
+    <h3 class="question__title">Какой метод вызывает функцию  через заданное время? Ответ не чувствителен к регистру</h3>
+    <ul class="question__list">
+      <li class="question__item">
+        <form action="" class="question__form"></form>
+        <label class="question__form-answer hidden">setTimeout</label>
+        <input autocomplete="off" class="question__form-input" type="text">
+        <button class="question__form-button">Ответить</button>
+      </li>
+    </ul>
+  </article>
+  <article class="question hidden">
+    <p class="question__counter">Вопрос №<span class="question__counter-current">13</span> из <span
+      class="question__counter-total">12</span> вопросов</p>
+    <h3 class="question__title">Какое клю чевое слово останавливает цикл? Ответ не чувствителен к регистру</h3>
+    <ul class="question__list">
+      <li class="question__item">
+        <form action="" class="question__form"></form>
+        <label class="question__form-answer hidden">break</label>
+        <input autocomplete="off" class="question__form-input" type="text">
+        <button class="question__form-button">Ответить</button>
+      </li>
+    </ul>
+  </article>
+  <button class="button button--start">Начать тест</button>
+  <section class="result hidden">
+    <h2 class="result__title">Ваш текущий результат:</h2>
+    <p class="result__text"><span class="result__correct"></span> (<span
+      class="result__percent"></span>%) правильных ответов из <span
+      class="result__question-total"></span> вопросов</p>
+    <h2 class="result__title">Ваш лучший результат:</h2>
+    <p class="result__best"><span class="result__best-correct"></span> (<span
+      class="result__best-percent"></span>%) правильных ответов из <span
+      class="result__best-question-total"></span> вопросов</p>
+    <button class="button button--repeat">Перезапустить тест</button>
+  </section>
+</main>
+<script src="./task-16.js"></script>
+</body>
+</html>
