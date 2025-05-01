@@ -1,219 +1,279 @@
-const buttonStart = document.querySelector('.button--start');
-const buttonRestart = document.querySelector('.button--repeat');
-const questions = document.querySelectorAll('.question');
-const correctAnswers = document.querySelectorAll('.question__answer--correct');
-const incorrectAnswers = document.querySelectorAll('.question__answer:not(.question__answer--correct)');
-const result = document.querySelector('.result');
-const resultCorrect = document.querySelector('.result__correct');
-const resultPercent = document.querySelector('.result__percent');
-const resultTotalQuestions = document.querySelector('.result__question-total');
-const questionCounterTotal = document.querySelectorAll('.question__counter-total');
-const questionForm = document.querySelectorAll('.question__form');
-const questionFormAnswers = document.querySelectorAll('.question__form-answer');
-const questionFormInputs = document.querySelectorAll('.question__form-input');
-const questionFormButtons = document.querySelectorAll('.question__form-button');
-const questionCounterCurrents = document.querySelectorAll('.question__counter-current');
-const timer = document.querySelector('.timer');
-const timerSecond = document.querySelector('.timer__seconds');
-const timerWarning = document.querySelector('.timer__warning');
-const bestCorrectAnswers = document.querySelector('.result__best-correct');
-const bestPercent = document.querySelector('.result__best-percent');
-const bestQuestionTotal = document.querySelector('.result__best-question-total');
-
-let bestResult = { // для хранения результата
-  correctAnswers: 0,
-  percent: 0,
-  questions: 0,
-};
-let questionIndex = 0; // что бы передавать вызвать след вопрос по индексу
-let counterCorrect = 0; // счетчик правильных ответов
-let leftSeconds = 30; // секунды для таймера
-
-// для корректности отображения номера текущего вопроса
-for (let i = 0; i < questionCounterCurrents.length; i++) {
-  questionCounterCurrents[i].textContent = (i + 1).toString();
+const elements = {
+  buttonStart: document.querySelector('.button--start'),
+  buttonRestart: document.querySelector('.button--restart'),
+  questions: document.querySelectorAll('.question'),
+  correctAnswers: document.querySelectorAll('.question__answer--correct'),
+  incorrectAnswers: document.querySelectorAll('.question__answer:not(.question__answer--correct)'),
+  questionAnswer: document.querySelector('.question__answer'),
+  result: document.querySelector('.result'),
+  resultCorrect: document.querySelector('.result__correct'),
+  resultPercent: document.querySelector('.result__percent'),
+  resultTotalQuestions: document.querySelector('.result__question-total'),
+  questionCounterTotal: document.querySelectorAll('.question__counter-total'),
+  questionForm: document.querySelectorAll('.question__form'),
+  questionFormAnswers: document.querySelectorAll('.question__form-answer'),
+  questionFormInputs: document.querySelectorAll('.question__form-input'),
+  questionFormButtons: document.querySelectorAll('.question__form-button'),
+  questionCounterCurrents: document.querySelectorAll('.question__counter-current'),
+  timer: document.querySelector('.timer'),
+  timerSecond: document.querySelector('.timer__seconds'),
+  timerWarning: document.querySelector('.timer__warning'),
+  bestCorrectAnswers: document.querySelector('.result__best-correct'),
+  bestPercent: document.querySelector('.result__best-percent'),
+  bestQuestionTotal: document.querySelector('.result__best-question-total'),
+  mainContainer: document.querySelector('.main'),
 }
 
-// достаем сохраненный результат, если он есть
-document.addEventListener('DOMContentLoaded', () => {
+// состояние
+const state = {
+  bestResult: {
+    correctAnswers: 0,
+    percent: 0,
+    questions: 0,
+  },
+  questionIndex: 0,
+  counterCorrect: 0,
+  leftSeconds: 30,
+  timerInterval: null,
+  isProcessing: false,
+  timerActive: true,
+  timerPaused: false,
+};
+
+// главная функция, запустит тест и по цепочке вызовет остальные функции:
+// вызовет делегирование, в котором листенер на кнопки и показ вопросов, старт, рестарт
+// и так далее по цепочке
+const init = () => {
+  //отображение номера текущего вопроса
+  elements.questionCounterCurrents.forEach((question, index) => {
+    question.textContent = (index + 1).toString();
+  });
+
+  // общее количество вопросов
+  elements.questionCounterTotal.forEach(questions => {
+    questions.textContent = elements.questions.length.toString();
+  });
+
+  // достаем сохраненный результат, если он есть
   const savedResult = localStorage.getItem('bestTestResult');
   if (savedResult) {
-    bestResult = JSON.parse(savedResult);
+    state.bestResult = JSON.parse(savedResult);
   }
-});
 
-for (let i = 0; i < questionCounterTotal.length; i++) {
-  questionCounterTotal[i].textContent = questions.length.toString(); // прописал из скольки всего вопросов
+  //вызов делегирования
+  eventDelegation();
 }
 
-const showNextQuestion = () => {
-  if (questionIndex === questions.length) { // проверяем есть ли еще вопросы
-    showResult(); // показать секцию с рез-том
-    return; // прекращаем, иначе идет дальше и выдаст ошибку при поиске след вопроса
+//делегирование
+const eventDelegation = () => {
+  //Вешаем обработчик на все ответы
+  elements.mainContainer.addEventListener('click', (evt) => {
+    // evt.preventDefault();
+    const answerButton = evt.target.closest('.question__answer');
+    const formButton = evt.target.closest('.question__form-button');
+
+    if (answerButton) {
+      handleAnswerClick(answerButton);
+    } else if (formButton) {
+      const formIndex = Array.from(elements.mainContainer.querySelectorAll('.question__form-button')).indexOf(formButton);
+      handleFormSubmit(formIndex);
+    }
+  });
+
+  // обработчик для input по enter, до этого ответ принимался только кнопке
+  elements.mainContainer.addEventListener('keypress', (evt) => {
+    if (evt.target.classList.contains('question__form-input') && evt.key === 'Enter') {
+      const inputIndex = Array.from(elements.mainContainer.querySelectorAll('.question__form-input')).indexOf(evt.target);
+      handleFormSubmit(inputIndex);
+    }
+  });
+
+  // кнопка старта
+  elements.buttonStart.addEventListener('click', startTest);
+
+  // кнопка перезапуска
+  elements.buttonRestart.addEventListener('click', restartTest);
+}
+
+//функция обработки клика по кнопкам, которую передаем в делегирование
+const handleAnswerClick = (answerButton) => {
+  // блокировать обработчик пока идет переключение вопроса и по истечению таймера
+  if (state.isProcessing || !state.timerActive) return;
+  state.isProcessing = true;
+  //остановка таймера после клика на ответ
+  state.timerPaused = true;
+  // проверяем класс у ответа, если правильный или неправильный, то будем дальше красить
+  const isCorrect = answerButton.classList.contains('question__answer--correct');
+  const bgColor = isCorrect ? '#7ee899' : '#fd6d7f';
+
+  answerButton.style.backgroundColor = bgColor;
+  //Отключаем кнопку, что бы не тыкали повторно, потом включим обратно
+  answerButton.disabled = true;
+
+  // делаем задержку, что бы успеть посмотреть правильный ли ответ
+  setTimeout(() => {
+    if (isCorrect) {
+      state.counterCorrect++;
+    }
+    // переключаем вопрос
+    proceedToNextQuestion();
+    // красим bg обратно
+    answerButton.style.backgroundColor = '';
+    // включаем обратно
+    answerButton.disabled = false;
+    state.isProcessing = false;
+  }, 1000);
+}
+
+//обработка формы на правильность ответа и покраску, аналогично как и в предыдущей обработке,
+// но будет проверка текста с совпадением ответа
+const handleFormSubmit = (index) => {
+  const answerTransform = elements.mainContainer.querySelectorAll('.question__form-answer')[index].textContent.toLowerCase().trim();
+  const inputTransform = elements.mainContainer.querySelectorAll('.question__form-input')[index].value.toLowerCase().trim();
+  const isCorrect = answerTransform === inputTransform;
+  const bgColor = isCorrect ? '#7ee899' : '#fd6d7f';
+
+  const btn = elements.mainContainer.querySelectorAll('.question__form-button')[index];
+  const input = elements.mainContainer.querySelectorAll('.question__form-input')[index];
+
+  btn.style.backgroundColor = bgColor;
+  input.style.backgroundColor = bgColor;
+  btn.disabled = true;
+  input.disabled = true;
+
+  setTimeout(() => {
+    if (isCorrect) {
+      state.counterCorrect++;
+    }
+
+    proceedToNextQuestion();
+    btn.style.backgroundColor = '';
+    input.style.backgroundColor = '';
+    input.value = '';
+    btn.disabled = false;
+    input.disabled = false;
+  }, 1000);
+}
+
+// переключение след вопроса с рестартом таймера
+const proceedToNextQuestion = () => {
+  hidePreviousQuestion();
+  state.questionIndex++;
+
+  if (state.questionIndex === elements.questions.length) {
+    showResult();
+    state.timerPaused = true;
   } else {
-    timerAnswer(leftSeconds) // вызываем таймер
+    startTimer(state.leftSeconds);
+    elements.questions[state.questionIndex].classList.remove('hidden');
+    state.timerPaused = false;
   }
-  questions[questionIndex].classList.remove('hidden'); //показываем след вопрос
 }
 
-const hidePreviousQuestion = () => {
-  questions[questionIndex].classList.add('hidden'); // скрываем пред вопрос
-}
-
-const showResult = () => {
-  // сохранение лучшего результата
-  if (counterCorrect > bestResult.correctAnswers) {
-    bestResult = {
-      correctAnswers: counterCorrect,
-      percent: ((counterCorrect / questions.length) * 100).toFixed(1),
-      questions: questions.length,
-    };
-    localStorage.setItem('bestTestResult', JSON.stringify(bestResult));
-  }
-  // Выдача лучшего результата
-  bestCorrectAnswers.textContent = bestResult.correctAnswers;
-  bestPercent.textContent = bestResult.percent;
-  bestQuestionTotal.textContent = bestResult.questions;
-
-  result.classList.remove('hidden'); // если был последний вопрос, то показываем result
-  resultCorrect.textContent = counterCorrect.toString(); // выдаем кол-во правильных ответов
-  resultPercent.textContent = ((counterCorrect / questions.length) * 100).toFixed(1).toString(); // % ответов
-  resultTotalQuestions.textContent = questions.length.toString(); // сколько было всего вопросов
-  timer.classList.add('hidden');
-  timerWarning.classList.add('hidden');
-}
-
-buttonStart.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  buttonStart.classList.add('hidden'); //скрываем кнопку после нажатия
-  questions[questionIndex].classList.toggle('hidden'); // показываем первый вопрос
-  timerAnswer(leftSeconds) // вызываем таймер
-  timer.classList.remove('hidden');
-  timerWarning.classList.remove('hidden');
-});
-
-correctAnswers.forEach((answer) => {
-  answer.addEventListener('click', function handleClick(evt) {
-    evt.preventDefault();
-    // отключаем подписку с ответом, иначе пока отрабатывает задержка,
-    // можно тыкать по ней и проскочить след вопросы с накруткой счетчика
-    answer.removeEventListener('click', handleClick)
-    answer.style.backgroundColor = '#7ee899'; // красим bg в зеленый
-    setTimeout(() => { // задержка, чтобы увидеть цвет bg
-      counterCorrect++; // в копилку правильных ответов
-      hidePreviousQuestion(); // сначала скрываем текущий вопрос по индексу
-      questionIndex++; // только теперь добавляем +1 к текущему индексу
-      showNextQuestion(); // после увеличения показываем вопрос по индексу
-      // возвращаем обратно подписку, что бы при повторном круге работал клик
-      answer.addEventListener('click', handleClick);
-    }, 1500);
-  });
-});
-
-incorrectAnswers.forEach((answer) => {
-  answer.addEventListener('click', function handleClick(evt) {
-    evt.preventDefault();
-
-    answer.removeEventListener('click', handleClick)
-    answer.style.backgroundColor = '#fd6d7f';
-
-    setTimeout(() => { // задержка, чтобы увидеть цвет bg
-      hidePreviousQuestion(); // сначала скрываем текущий вопрос по индексу
-      questionIndex++; // только теперь добавляем +1 к текущему индексу
-      showNextQuestion(); // после увеличения показываем вопрос по индексу
-      answer.addEventListener('click', handleClick);
-    }, 1500);
-  });
-})
-
-questionForm.forEach((answer, index) => {
-  questionFormButtons[index].addEventListener('click', function handleClick(evt) {
-    evt.preventDefault();
-    questionFormButtons[index].removeEventListener('click', handleClick);
-    let answerTransform = questionFormAnswers[index].textContent.toLowerCase().trim();
-    let inputTransform = questionFormInputs[index].value.toLowerCase().trim();
-
-    if (answerTransform === inputTransform) {
-      questionFormButtons[index].style.backgroundColor = '#7ee899'; // красим bg в зеленый
-      questionFormInputs[index].style.backgroundColor = '#7ee899'; // красим bg в зеленый
-      setTimeout(() => { // задержка, чтобы увидеть цвет bg
-        counterCorrect++; // в копилку правильных ответов
-        hidePreviousQuestion(); // сначала скрываем текущий вопрос по индексу
-        questionIndex++; // только теперь добавляем +1 к текущему индексу
-        showNextQuestion(); // после увеличения показываем вопрос по индексу
-        questionFormButtons[index].addEventListener('click', handleClick);
-      }, 1500);
-    } else {
-      questionFormButtons[index].style.backgroundColor = '#fd6d7f';
-      questionFormInputs[index].style.backgroundColor = '#fd6d7f';
-      setTimeout(() => { // задержка, чтобы увидеть цвет bg
-        hidePreviousQuestion(); // сначала скрываем текущий вопрос по индексу
-        questionIndex++; // только теперь добавляем +1 к текущему индексу
-        showNextQuestion(); // после увеличения показываем вопрос по индексу
-        questionFormButtons[index].addEventListener('click', handleClick);
-      }, 1500)
-    }
-  })
-})
-
-buttonRestart.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  questionIndex = 0; // обнуляем индекс для массива
-  counterCorrect = 0; // обнуляем счетчик правильных ответов
-  result.classList.add('hidden'); // обратно скрываем секцию результатов
-  buttonStart.classList.remove('hidden'); // показываем кнопку на старте
-  questions.forEach(question => {
-    question.classList.add('hidden'); // возвращаем вопросам hidden, если где-то остался
-  });
-  correctAnswers.forEach((answer) => {
-    answer.style.backgroundColor = 'transparent'; // убираем зеленый bg
-  });
-  incorrectAnswers.forEach((answer) => {
-    answer.style.backgroundColor = 'transparent'; // убираем красный bg
-  });
-  questionFormButtons.forEach((button) => {
-    button.style.backgroundColor = 'buttonface'; // Убираем bg
-  });
-  questionFormInputs.forEach((input) => {
-    input.style.backgroundColor = 'transparent'; // убираем bg
-  });
-});
-
-
-//timer
-timerSecond.textContent = leftSeconds.toString();
-
-// переменная, что бы можно было прекращать предыдущий таймер
-// иначе в след вопросе будет накладываться таймер на таймер
-let timerInterval = null;
-
-const timerAnswer = (seconds) => {
-  let secondsLeft = seconds;
-
-  // проверка предыдущего таймера и его очистка
-  if (timerInterval) {
-    clearInterval(timerInterval);
+// Таймер
+const startTimer = (seconds) => {
+  if (state.timerInterval) {
+    clearInterval(state.timerInterval);
   }
 
-  timerInterval = setInterval(() => {
-    secondsLeft--;
-    // при <10 секундах допишем 0 перед числом, что бы не так криво смотрелось
-    if (secondsLeft >= 10) {
-      timerSecond.textContent = secondsLeft;
-    } else {
-      timerSecond.textContent = `0${secondsLeft}`;
-    }
-    // действие при истечении времени
-    if (secondsLeft <= 0) {
-      clearInterval(timerInterval);
-      timerWarning.classList.remove('visibility-hidden');
-      // задержка, что бы успеть увидеть предупреждение и потом сменить вопрос
+  state.timerActive = true;
+  updateTimerDisplay(seconds);
+
+  state.timerInterval = setInterval(() => {
+    if (state.timerPaused) return;
+    seconds--;
+    updateTimerDisplay(seconds);
+
+    if (seconds <= 0) {
+      clearInterval(state.timerInterval);
+      //вот здесь будет передано timerActive = false, что не даст отрабатывать обработчику
+      state.timerActive = false;
+      elements.timerWarning.classList.remove('visibility-hidden');
+
       setTimeout(() => {
-        hidePreviousQuestion();
-        questionIndex++;
-        showNextQuestion();
-        timerWarning.classList.add('visibility-hidden')
-      }, 1500);
+        proceedToNextQuestion();
+        elements.timerWarning.classList.add('visibility-hidden');
+      }, 1000);
     }
   }, 1000);
 }
+
+// обновление таймера, если меньше 10 сек, то допишем 0, что бы не было криво
+const updateTimerDisplay = (seconds) => {
+  elements.timerSecond.textContent = seconds >= 10 ? seconds : `0${seconds}`;
+}
+
+//показать секцию с результатом
+const showResult = () => {
+  const percent = ((state.counterCorrect / elements.questions.length) * 100).toFixed(1);
+
+  // Сохраняем лучший результат
+  if (state.counterCorrect > state.bestResult.correctAnswers) {
+    state.bestResult = {
+      correctAnswers: state.counterCorrect,
+      percent: percent,
+      questions: elements.questions.length,
+    };
+    localStorage.setItem('bestTestResult', JSON.stringify(state.bestResult));
+  }
+
+  // Обновляем
+  elements.bestCorrectAnswers.textContent = state.bestResult.correctAnswers;
+  elements.bestPercent.textContent = state.bestResult.percent;
+  elements.bestQuestionTotal.textContent = state.bestResult.questions;
+  elements.resultCorrect.textContent = state.counterCorrect;
+  elements.resultPercent.textContent = percent;
+  elements.resultTotalQuestions.textContent = elements.questions.length.toString();
+
+  elements.result.classList.remove('hidden');
+  elements.timer.classList.add('hidden');
+  elements.timerWarning.classList.add('hidden');
+}
+
+//старт теста в начале
+const startTest = (evt) => {
+  evt.preventDefault();
+  elements.buttonStart.classList.add('hidden');
+  elements.questions[state.questionIndex].classList.remove('hidden');
+  elements.timer.classList.remove('hidden');
+  elements.timerWarning.classList.remove('hidden');
+  state.timerPaused = false;
+  startTimer(state.leftSeconds);
+}
+
+//повторить тест
+const restartTest = (evt) => {
+  evt.preventDefault();
+  state.questionIndex = 0;
+  state.counterCorrect = 0;
+
+  elements.result.classList.add('hidden');
+  elements.buttonStart.classList.remove('hidden');
+
+  elements.questions.forEach(question => {
+    question.classList.add('hidden');
+  });
+
+  // откатить обратно bg и кнопки
+  document.querySelectorAll('.question__answer').forEach(el => {
+    el.style.backgroundColor = '';
+    el.disabled = false;
+  });
+
+  document.querySelectorAll('.question__form-button, .question__form-input').forEach(el => {
+    el.style.backgroundColor = '';
+    el.disabled = false;
+  });
+
+  document.querySelectorAll('.question__form-input').forEach(el => {
+    el.value = '';
+  });
+}
+
+// Скрыть предыдущий вопрос
+const hidePreviousQuestion = () => {
+  elements.questions[state.questionIndex].classList.add('hidden');
+}
+
+//вызываем главную функцию, которая нам все и запустит
+init();

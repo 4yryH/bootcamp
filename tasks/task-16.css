@@ -1,5 +1,6 @@
 :root {
   --font-family: "Comic Relief", system-ui;
+  --font-second: "Oswald", sans-serif;
   --graphit-color: #282a2cff;
   --border-color: lightgray;
   --correct-color: #7ee899;
@@ -29,12 +30,24 @@
 }
 
 .question__counter {
+  font-family: var(--font-second), sans-serif;
   font-size: 21px;
 }
 
 .question__item {
   border: 1px solid var(--border-color);
   border-radius: 4px;
+  min-width: 450px;
+}
+
+.question__item--form {
+  border: none;
+}
+
+.question__title {
+  font-family: var(--font-second), sans-serif;
+  font-weight: 400;
+  max-width: 450px;
 }
 
 .question__answer {
@@ -42,7 +55,7 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
-  max-width: 100%;
+  min-width: 100%;
   width: 100%;
   text-align: left;
   padding: 10px;
@@ -62,29 +75,48 @@
 }
 
 .button--start {
-  background-color: var(--correct-color);
+  margin-top: 64px;
+  width: 400px;
+}
+
+.button--start::before {
+  content: "✓";
+  margin-right: 8px;
+  display: inline-block;
+}
+
+.button--start,
+.button--restart {
+  padding: 12px 24px;
+  font-size: 16px;
+  color: #fff;
+  background: linear-gradient(135deg, #2196F3, #1976D2);
   border: none;
-  padding: 10px;
-  max-width: 300px;
-  margin: 80px auto 0 auto;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .button--start:hover,
-.button--start:focus {
-  background-color: green;
-  font-size: 21px;
+.button--start:focus,
+.button--restart:hover,
+.button--restart:focus {
+  background: linear-gradient(135deg, #1976D2, #0D47A1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-.button--repeat {
-  background-color: lightpink;
-  border: none;
-  padding: 10px;
+.button--start:active,
+.button--restart:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 3px rgba(0,0,0,0.2);
 }
 
-.button--repeat:hover,
-.button--repeat:focus {
-  background-color: var(--uncorrect-color);
-  font-size: 21px;
+.button--restart::before {
+  content: "🔄";
+  margin-right: 8px;
+  display: inline-block;
 }
 
 
