@@ -18,7 +18,7 @@ const student = {
   },
 }
 
-const studentCopyAssign = Object.assign(student, {});
+const studentCopyAssign = Object.assign({}, student);
 
 const studentCopySpread = {...student};
 
