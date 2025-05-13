@@ -35,10 +35,14 @@ console.log(getMaxNumber([1, 2, 3, 10, 4, 5]));
  */
 
 function createFibonacciCalculator() {
-  const cache = { 1: 1, 2: 1 }; // начальные значения
+  // Создаём кеш с начальными значениями
+  const cache = {
+    0: 0, // поменял начальные значения, что бы высчитывалось fibonacci(0)
+    1: 1,
+  };
 
   function fib(n) {
-    if (cache[n]) {
+    if (n in cache) {
       console.log(`Достаем из кеша: fib(${n}) = ${cache[n]}`);
       return cache[n];
     }
@@ -54,7 +58,7 @@ function createFibonacciCalculator() {
 const fibonacci = createFibonacciCalculator();
 
 console.log(fibonacci(50)); // 12586269025 должен посчитать
+console.log(fibonacci(0)); // 0 должен вытащить из кеша, результат уже был посчитан
 console.log(fibonacci(1)); // 1 должен вытащить из кеша, результат уже был посчитан
 console.log(fibonacci(5)); // 5 должен вытащить из кеша, результат уже был посчитан
-console.log(fibonacci(6)); // 8 должен вытащить из кеша, результат уже был посчитан
 console.log(fibonacci(10)); // 55 должен вытащить из кеша, результат уже был посчитан
