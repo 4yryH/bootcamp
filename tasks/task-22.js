@@ -76,20 +76,20 @@ innerFunc();
 function createFibonacciCalculator() {
   // Создаём кеш с начальными значениями
   const cache = {
+    0: 0, // поменял начальные значения, что бы высчитывалось fibonacci(0)
     1: 1,
-    2: 1,
   };
 
   return function(n) {
     // Если значение уже посчитано, то сразу возвращаем его
-    if (cache[n]) {
+    if (n in cache) { // немного поменял условие на проверку числа в кеше
       console.log(`Достаем из кеша: fib(${n}) = ${cache[n]}`);
       return cache[n];
     }
 
     // Найдём последнее число, которое уже есть в кеше
     let lastComputed = Math.max(...Object.keys(cache).map(Number));
-    let fib1 = cache[lastComputed - 1] || 1;
+    let fib1 = cache[lastComputed - 1]; // убрал или || 1 он тут не нужен, мы уже заполнили кеш заранее
     let fib2 = cache[lastComputed];
 
     // Вычисляем с помощью цикла от lastComputed + 1 до n
