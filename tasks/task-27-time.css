@@ -1,0 +1,38 @@
+.timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 24px auto;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
+.title {
+  text-align: center;
+}
+
+.timer__minutes, .timer__separator, .timer__seconds {
+  font-size: 24px;
+}
+
+.timer-circle__minutes, .timer-circle__separator, .timer-circle__seconds {
+  font-size: 24px;
+  color: darkgreen;
+}
+
+.display-message {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+label {
+  font-size: 18px;
+}
+
+.button {
+  cursor: pointer;
+  padding: 8px 12px;
+}

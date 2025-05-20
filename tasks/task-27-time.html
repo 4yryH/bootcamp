@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        name="viewport">
+  <meta content="ie=edge" http-equiv="X-UA-Compatible">
+  <link href="./task-27-time.css" rel="stylesheet">
+  <title>setTimeout&setInterval</title>
+</head>
+<section>
+  <h2 class="title">Обратный отсчет</h2>
+  <div class="timer">
+    <span class="timer__minutes">00</span>
+    <span class="timer__separator">:</span>
+    <span class="timer__seconds"></span>
+  </div>
+</section>
+<section>
+  <h2 class="title">Напоминалка</h2>
+  <div class="timer">
+    <span class="timer-circle__minutes">00</span>
+    <span class="timer-circle__separator">:</span>
+    <span class="timer-circle__seconds"></span>
+  </div>
+</section>
+<section class="display-message">
+    <label for="delay">Введите время задержки в секундах</label>
+    <input class="input-delay" id="delay" type="number" value="1">
+    <label for="text">Введите текст, который будет отображаться с задержкой в консоли</label>
+    <input class="input-text" id="text" placeholder="Введите текст" required type="text">
+    <button class="button" type="button">Начать</button>
+</section>
+<script src="./task-27-time.js"></script>
+<body>
+
+</body>
+</html>
