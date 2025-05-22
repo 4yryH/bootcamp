@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        name="viewport">
+  <meta content="ie=edge" http-equiv="X-UA-Compatible">
+  <title>storage</title>
+</head>
+<body>
+<form class="form">
+  <label for="name">Имя</label>
+  <input id="name" name="name" type="text">
+  <label for="tel">Телефон</label>
+  <input id="tel" name="tel" type="tel">
+  <label for="email">email</label>
+  <input id="email" name="email" type="email">
+  <button>send</button>
+</form>
+
+<form class="expense-form" style="margin-top: 32px">
+  <label for="description">Описание</label>
+  <input id="description" name="description" placeholder="Описание" type="text"/>
+  <label for="amount"></label>
+  <input id="amount" name="amount" placeholder="Сумма" type="number"/>
+  <label for="date"></label>
+  <input id="date" name="date" type="date"/>
+  <button>Добавить</button>
+</form>
+
+<div>
+  Время на странице:
+  <span class="timer">00:00</span>
+</div>
+
+<ul class="expense-list"></ul>
+<script src="./task-31-storage.js"></script>
+</body>
+</html>
