@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        name="viewport">
+  <meta content="ie=edge" http-equiv="X-UA-Compatible">
+  <title>fetch&ajax</title>
+</head>
+<body>
+<form action="https://jsonplaceholder.typicode.com/" class="post-form" method="post">
+  <label for="id">ID пользователя</label>
+  <input id="id" placeholder="ID" type="text">
+
+  <label for="title">Заголовок</label>
+  <input id="title" placeholder="title" type="text">
+
+  <label for="text">Текст</label>
+  <input id="text" placeholder="text" type="text">
+
+  <button>Post item</button>
+</form>
+<h2>Отправленные данные:</h2>
+<div class="post-list">
+</div>
+
+<form class="update-form" style="padding-top: 32px; border-top: 2px dashed gray;">
+  <label for="updatePostId"></label>
+  <input id="updatePostId" min="0" placeholder="ID поста" type="number">
+
+  <label for="updateId"></label>
+  <input id="updateId" placeholder="Обновленный ID пользователя" type="text">
+
+  <label for="updateTitle"></label>
+  <input id="updateTitle" placeholder="Обновленный заголовок" type="text">
+
+  <label for="updateText"></label>
+  <input id="updateText" placeholder="Обновленный текст" type="text">
+
+  <button>update</button>
+</form>
+<div class="updated-post">
+  <h2>Обновленный пост:</h2>
+</div>
+
+<form class="get-form" method="get" style="margin-top: 24px; border-top: 2px dashed gray">
+  <button style="margin-top: 24px">Get list</button>
+
+  <button class="reset-list">clear list</button>
+
+  <button class="delete-post">delete post</button>
+  <input class="input-delete-post" min="0" placeholder="Input ID" type="number">
+
+  <h2>Полученные данные:</h2>
+
+  <div class="get-list">
+  </div>
+</form>
+
+<script src="./task-32-fetch-ajax.js"></script>
+</body>
+</html>
